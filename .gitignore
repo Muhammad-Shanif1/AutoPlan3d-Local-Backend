@@ -1,0 +1,16 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+services/.env
+.env
+
+# IDE/editor
+.vscode/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
