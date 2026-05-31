@@ -3,21 +3,22 @@ from schema.project import ProjectSchema
 from sqlalchemy.orm import Session
 from services.models import UserModel
 from schema.user import UserCreateSchema, LoginSchema
-from pwdlib import PasswordHash
+from passlib.context import CryptContext
 from services.settings import settings
 from datetime import datetime, timedelta
 from services.db import get_db
 import jwt
 import secrets
  
-password_hasher = PasswordHash.recommended()
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 def get_password_hash(password: str) -> str:
-    return password_hasher.hash(password)
+    return pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return password_hasher.verify(plain_password, hashed_password)
+    return pwd_context.verify(plain_password, hashed_password)
 
 
 def register(body: UserCreateSchema, db: Session):
