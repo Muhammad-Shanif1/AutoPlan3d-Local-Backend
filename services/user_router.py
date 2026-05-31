@@ -4,7 +4,7 @@ from schema.user import UserCreateSchema, UserResponseSchema, LoginSchema, UserL
 from services.models import UserModel
 import services.controller as controller
 import services.send_email
-import services.signIn_with_google
+import services.sign_in_with_google
 from services.db import get_db
 
 router = APIRouter(prefix="/user", tags=["user"])
@@ -17,7 +17,7 @@ def register_endpoint(user: UserCreateSchema, db: Session = Depends(get_db)):
 
 @router.post("/login_with_google", status_code=status.HTTP_200_OK, response_model=UserLoginResponseSchema)
 async def login_with_google_endpoint(user: ContinueWithGoogleSchema, db: Session = Depends(get_db)):
-	return await services.signIn_with_google.login_with_google(user, db)
+	return await services.sign_in_with_google.login_with_google(user, db)
 
 
 @router.post("/login", status_code=status.HTTP_200_OK, response_model=UserLoginResponseSchema)
